@@ -16,7 +16,8 @@ const corsOptions = {
     'http://localhost:8080',
     'http://localhost:3000',
     'https://goal-platform-client-t6ix.vercel.app',
-    'https://goal-platform-client-t6ix-n8szcupf7-piyushs-projects-815384e6.vercel.app'
+    'https://goal-platform-client-t6ix-n8szcupf7-piyushs-projects-815384e6.vercel.app',
+    'https://goal-platform-client-t6ix-7veln9xfi-piyushs-projects-815384e6.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
