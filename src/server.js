@@ -10,8 +10,8 @@ const progressRouter = require('./routes/progress.routes');
 
 const app = express();
 
-// Enable pre-flight request for all routes
-app.options('*', cors({
+// CORS configuration
+const corsOptions = {
   origin: [
     'http://localhost:8080',
     'http://localhost:3000',
@@ -21,19 +21,11 @@ app.options('*', cors({
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
-}));
+};
 
-app.use(cors({
-  origin: [
-    'http://localhost:8080',
-    'http://localhost:3000',
-    'https://goal-platform-client-t6ix.vercel.app',
-    'https://goal-platform-client-t6ix-n8szcupf7-piyushs-projects-815384e6.vercel.app'
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// Enable CORS pre-flight
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 
 // Log all incoming requests
 app.use((req, res, next) => {
