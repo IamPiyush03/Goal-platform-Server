@@ -7,6 +7,10 @@ const authRouter = require('./routes/auth.routes');
 const goalsRouter = require('./routes/goals.routes');
 const chatRouter = require('./routes/chat.routes');
 const progressRouter = require('./routes/progress.routes');
+const checkinRouter = require('./routes/checkin.routes');
+const notificationsRouter = require('./routes/notifications.routes');
+const { errorHandler } = require('./middlewares/errorHandler');
+const logger = require('./utils/logger');
 
 const app = express();
 
@@ -27,11 +31,8 @@ const corsOptions = {
 // Enable CORS pre-flight
 app.use(cors(corsOptions));
 
-// Log all incoming requests
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-  next();
-});
+// Enhanced request logging
+app.use(logger.request);
 
 app.use(express.json());
 
@@ -40,15 +41,20 @@ app.use('/auth', authRouter);
 app.use('/goals', goalsRouter);
 app.use('/chat', chatRouter);
 app.use('/progress', progressRouter);
+app.use('/checkin', checkinRouter);
+app.use('/notifications', notificationsRouter);
+
+// Error handling middleware (must be last)
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 
 // Start server regardless of DB status
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info(`Server running on port ${PORT}`);
 });
 
 // Attempt DB connection in background
 connectDB().catch((err) => {
-  console.error('Failed to connect to DB', err.message || err);
+  logger.error('Failed to connect to database', { error: err.message || err });
 });
