@@ -24,7 +24,6 @@ const corsOptions = {
 };
 
 // Enable CORS pre-flight
-app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
 // Log all incoming requests
