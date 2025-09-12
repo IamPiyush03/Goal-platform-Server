@@ -1,0 +1,166 @@
+Backend MVP (Goal Achievement Platform)
+🎯 Goal
+
+Deliver a scalable backend with APIs to handle:
+
+Authentication
+
+Goal & milestone management
+
+AI tutor interaction
+
+Progress tracking
+
+🔑 Core Features
+
+Authentication System
+
+JWT auth (signup, login, logout)
+
+Input validation + error handling
+
+Goal Management
+
+Goal schema (title, description, timeline, milestones, progress)
+
+CRUD APIs
+
+Auto-generate milestones
+
+AI Tutor
+
+Endpoint for chat (integrates with OpenAI/HuggingFace API)
+
+Store chat history
+
+Progress Tracking
+
+Track milestone completion
+
+Store progress metrics
+
+Return summaries
+
+🚀 MVP Deliverables
+
+REST API (Express/FastAPI)
+
+MongoDB/Postgres schema
+
+JWT-based auth
+
+Deployed backend (Render/Heroku/Railway)
+
+Backend PRD
+Tech Stack
+
+Backend Framework: Node.js + Express
+
+Database: PostgreSQL (structured) OR MongoDB (flexible)
+
+Auth: JWT
+
+Realtime: Socket.io (optional for chat)
+
+AI: OpenAI API (gpt-4-mini or cheaper model)
+
+API Endpoints
+
+POST /auth/signup → Register user
+
+POST /auth/login → Login + return JWT
+
+POST /goals → Create goal + auto milestones
+
+GET /goals → Get all goals for user
+
+GET /goals/:id → Get goal with milestones
+
+PUT /goals/:id → Update goal
+
+DELETE /goals/:id → Delete goal
+
+POST /chat → Send user query → get AI response
+
+GET /progress/:goalId → Get progress summary
+
+Out of Scope (MVP)
+
+Email verification
+
+Push notifications
+
+Advanced dependency management
+
+Shared API Documentation
+Authentication
+POST /auth/signup
+
+Request:
+
+{ "email": "test@mail.com", "password": "StrongPass123" }
+
+
+Response:
+
+{ "message": "User registered successfully" }
+
+POST /auth/login
+
+Request:
+
+{ "email": "test@mail.com", "password": "StrongPass123" }
+
+
+Response:
+
+{ "token": "jwt-token" }
+
+Goals
+POST /goals
+
+Request:
+
+{ "title": "Learn Machine Learning", "timeline": "3 months" }
+
+
+Response:
+
+{
+  "goalId": "123",
+  "milestones": [
+    { "week": 1, "objective": "Python Basics" },
+    { "week": 2, "objective": "Linear Algebra" }
+  ]
+}
+
+GET /goals
+
+Response:
+
+[
+  { "id": "123", "title": "Learn Machine Learning", "progress": 30 }
+]
+
+Chat
+POST /chat
+
+Request:
+
+{ "goalId": "123", "message": "Explain linear regression" }
+
+
+Response:
+
+{ "reply": "Linear regression is a method to model..." }
+
+Progress
+GET /progress/:goalId
+
+Response:
+
+{
+  "completion": 40,
+  "velocity": "2 modules/week",
+  "summary": "You’ve completed Python Basics and Statistics"
+}
