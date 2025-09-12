@@ -10,6 +10,19 @@ const progressRouter = require('./routes/progress.routes');
 
 const app = express();
 
+// Enable pre-flight request for all routes
+app.options('*', cors({
+  origin: [
+    'http://localhost:8080',
+    'http://localhost:3000',
+    'https://goal-platform-client-t6ix.vercel.app',
+    'https://goal-platform-client-t6ix-n8szcupf7-piyushs-projects-815384e6.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(cors({
   origin: [
     'http://localhost:8080',
@@ -17,8 +30,17 @@ app.use(cors({
     'https://goal-platform-client-t6ix.vercel.app',
     'https://goal-platform-client-t6ix-n8szcupf7-piyushs-projects-815384e6.vercel.app'
   ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Log all incoming requests
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  next();
+});
+
 app.use(express.json());
 
 app.use('/health', healthRouter);
