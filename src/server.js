@@ -12,8 +12,10 @@ const app = express();
 
 app.use(cors({
   origin: [
-    'http://localhost:8080', // Vite dev server
-    'http://localhost:3000'  // Common React dev server
+    'http://localhost:8080',
+    'http://localhost:3000',
+    'https://goal-platform-client-t6ix.vercel.app',
+    'https://goal-platform-client-t6ix-n8szcupf7-piyushs-projects-815384e6.vercel.app'
   ],
   credentials: true
 }));
