@@ -8,7 +8,7 @@ const createGoal = async (req, res) => {
       return res.status(400).json({ message: 'title and timeline are required' });
     }
     const weeks = parseTimeline(timeline);
-    const milestones = generateMilestones(title, weeks);
+    const milestones = await generateMilestones(title, weeks, description);
     const goal = await Goal.create({
       title,
       description,
