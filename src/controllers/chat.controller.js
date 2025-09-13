@@ -39,6 +39,25 @@ const chat = async (req, res) => {
   }
 };
 
-module.exports = { chat };
+const getChatHistory = async (req, res) => {
+  try {
+    const { goalId } = req.params;
+    if (!goalId) {
+      return res.status(400).json({ message: 'goalId is required' });
+    }
+
+    const chatHistory = await Chat.findOne({ goalId, userId: req.user.userId });
+    if (!chatHistory) {
+      return res.status(200).json({ messages: [] });
+    }
+
+    return res.status(200).json({ messages: chatHistory.messages });
+  } catch (err) {
+    console.error('get chat history error', err);
+    return res.status(500).json({ message: 'Failed to fetch chat history' });
+  }
+};
+
+module.exports = { chat, getChatHistory };
 
 

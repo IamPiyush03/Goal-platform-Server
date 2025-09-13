@@ -48,6 +48,7 @@ const signup = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 10);
 
     // In development mode, skip email verification
+    console.log('NODE_ENV:', process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'development') {
       const user = await User.create({
         email,
